@@ -120,7 +120,7 @@
 <body>
     <div class="container">
         <div class="header">Complete the Application</div>
-        <form action="/submit_application" method="POST">
+        <form id="application-form" action="/submit_application" method="POST">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" required>
@@ -133,21 +133,18 @@
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
             </div>
-            <button class="verify-button">Verify</button>
-        </form>
-        <div class="skills-container">
-            <div class="skill-box">
-                <div class="add-skill-container">
-                    <input type="text" id="skill-input" class="add-skill-input" placeholder="Enter Skill">
-                    <button class="add-skill-button" onclick="addSkill()">Add</button>
+            <div class="skills-container">
+                <div class="skill-box">
+                    <div class="add-skill-container">
+                        <input type="text" id="skill-input" class="add-skill-input" placeholder="Enter Skill">
+                        <button type="button" class="add-skill-button" onclick="addSkill()">Add</button>
+                    </div>
+                    <div id="skill-list" class="skill-list"></div>
                 </div>
-                <div id="skill-list" class="skill-list"></div>
+                <div class="submitted-skills" id="submitted-skills"></div>
             </div>
-            <div class="submitted-skills">
-                <!-- Display submitted skills here -->
-            </div>
-        </div>
-        <button class="verify-button" style="float: right;">Submit</button>
+            <button type="submit" class="verify-button" style="float: right;">Submit</button>
+        </form>
     </div>
 
     <script>
@@ -162,7 +159,7 @@
                 return false;
             }
             currentFocus = -1;
-            var matches = [];
+              var matches = [];
             arr.forEach(function(item) {
                 if (item.substr(0, val.length).toUpperCase() === val.toUpperCase()) {
                     matches.push(item);
@@ -234,20 +231,20 @@
     autocomplete(document.getElementById('skill-input'), skills);
 
     function addSkill() {
-    var skillInput = document.getElementById('skill-input');
-    var skill = skillInput.value.trim();
-    if (skill === '') return;
-    var skillList = document.getElementById('skill-list');
-    var submittedSkills = document.querySelector('.submitted-skills');
-    var listItem = document.createElement('span');
-    listItem.className = 'skill-list-item';
-    listItem.textContent = skill;
-    listItem.addEventListener('click', function() {
-        listItem.parentNode.removeChild(listItem);
-    });
-    submittedSkills.appendChild(listItem); // Append to submitted skills container
-    skillInput.value = '';
-}
-</script>
+        var skillInput = document.getElementById('skill-input');
+        var skill = skillInput.value.trim();
+        if (skill === '') return;
+        var skillList = document.getElementById('skill-list');
+        var submittedSkills = document.getElementById('submitted-skills'); // Corrected
+        var listItem = document.createElement('span');
+        listItem.className = 'skill-list-item';
+        listItem.textContent = skill;
+        listItem.addEventListener('click', function() {
+            listItem.parentNode.removeChild(listItem);
+        });
+        submittedSkills.appendChild(listItem);
+        skillInput.value = '';
+    }
+    </script>
 </body>
 </html>
