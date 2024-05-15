@@ -22,14 +22,18 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install unixodbc-dev
+
       - name: Create and start virtual environment
         run: |
           python -m venv venv
           source venv/bin/activate
-      
-      - name: Install dependencies
+
+      - name: Install Python dependencies
         run: |
-          pip install unixodbc-dev
           pip install -r requirements.txt
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
